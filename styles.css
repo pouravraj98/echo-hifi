@@ -244,9 +244,16 @@ p  { margin: 0; line-height: 1.55; }
   font-family: var(--font-sans); font-weight: 500; font-size: 22px;
   letter-spacing: -0.04em; color: var(--ink);
   display: inline-flex; align-items: baseline; gap: 6px;
+  text-decoration: none;
+  line-height: 1;
 }
 .logo em { color: var(--accent); font-style: normal; }
-.logo-sub { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); letter-spacing: 0.12em; text-transform: uppercase; }
+.logo-sub {
+  font-family: var(--font-sans); font-size: 11px; font-weight: 500;
+  color: var(--ink-3); letter-spacing: 0.16em; text-transform: uppercase;
+  line-height: 1;
+  position: relative; top: 1px;
+}
 
 /* ============ Buttons ============ */
 .btn {
