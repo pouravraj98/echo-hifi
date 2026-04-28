@@ -1,0 +1,246 @@
+/* Echo Hi-Fi — "Today vs Echo" comparison cards
+   Two-column polished version of the wireframe. */
+
+.cmp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  max-width: 1120px;
+  margin: 72px auto 0;
+}
+
+@media (max-width: 920px) {
+  .cmp-grid { grid-template-columns: 1fr; gap: 20px; }
+}
+
+.cmp-card {
+  position: relative;
+  padding: 40px 40px 36px;
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--paper) 96%, transparent);
+  border: 1px solid var(--line);
+  box-shadow:
+    inset 0 1px 0 0 color-mix(in srgb, white 50%, transparent),
+    0 24px 60px -32px oklch(0.3 0.06 235 / 0.15),
+    0 4px 12px -8px oklch(0.3 0.06 235 / 0.08);
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+
+  /* Reveal — cards rise + fade */
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 800ms cubic-bezier(0.22, 1, 0.36, 1), transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cmp-grid.is-active .cmp-today { transition-delay: 60ms; }
+.cmp-grid.is-active .cmp-echo  { transition-delay: 200ms; }
+.cmp-grid.is-active .cmp-card  { opacity: 1; transform: translateY(0); }
+
+/* Echo card gets a faint warm wash up top */
+.cmp-card.cmp-echo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse 70% 50% at 30% 0%, color-mix(in srgb, var(--accent-soft) 65%, transparent), transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.cmp-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--accent-2);
+  margin-bottom: 32px;
+}
+.cmp-eyebrow .slash { color: var(--ink-4); margin-right: 4px; }
+
+/* ---------- Today card rows ---------- */
+.cmp-rows {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+  display: flex;
+  flex-direction: column;
+}
+.cmp-rows > li {
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  gap: 22px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px dashed color-mix(in srgb, var(--line-2) 70%, transparent);
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+.cmp-grid.is-active .cmp-rows > li {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: calc(700ms + var(--i, 0) * 90ms);
+}
+.cmp-rows > li:last-child { border-bottom: 0; padding-bottom: 4px; }
+.cmp-rows > li:first-child { padding-top: 4px; }
+
+.cmp-tile {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px 9px 8px;
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  background: color-mix(in srgb, var(--paper-2) 70%, transparent);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  white-space: nowrap;
+  box-shadow: inset 0 1px 0 0 color-mix(in srgb, white 60%, transparent);
+}
+.cmp-tile-ic {
+  display: grid; place-items: center;
+  width: 24px; height: 24px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent) 12%, var(--paper));
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+  color: var(--accent-2);
+  flex-shrink: 0;
+}
+.cmp-tile-ic iconify-icon {
+  font-size: 14px;
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.cmp-text {
+  font-size: 15px;
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+
+/* ---------- Echo card highlight tile ---------- */
+.cmp-hero-tile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 22px;
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--paper) 80%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  margin-bottom: 28px;
+  box-shadow:
+    inset 0 1px 0 0 color-mix(in srgb, white 60%, transparent),
+    0 8px 24px -16px var(--accent-2);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 600ms ease, transform 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.cmp-grid.is-active .cmp-hero-tile {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: 700ms;
+}
+
+.cmp-orb {
+  width: 48px; height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%, color-mix(in srgb, white 50%, transparent), transparent 55%),
+    linear-gradient(135deg, var(--accent), var(--accent-2) 70%, oklch(0.25 0.03 235));
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--accent) 12%, transparent),
+    0 10px 24px -10px var(--accent-2);
+}
+
+.cmp-hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.cmp-hero-title {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.cmp-hero-meta {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.cmp-hero-meta em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-2);
+  font-size: 13px;
+  margin-left: 4px;
+}
+
+/* ---------- Echo checklist ---------- */
+.cmp-check {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.cmp-check li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 15px;
+  color: var(--ink);
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 480ms ease, transform 480ms ease;
+}
+.cmp-grid.is-active .cmp-check li {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: calc(900ms + var(--i, 0) * 110ms);
+}
+.cmp-tick {
+  width: 22px; height: 22px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent-2);
+  display: grid;
+  place-items: center;
+}
+.cmp-tick svg { width: 12px; height: 12px; }
+
+/* ---------- Card foot paragraph ---------- */
+.cmp-foot {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink-3);
+  margin: auto 0 0;
+  padding-top: 4px;
+  text-wrap: pretty;
+}
+.cmp-foot em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--ink-2);
+}

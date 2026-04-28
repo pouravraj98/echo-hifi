@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en" class="lenis">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Echo — Conversational AI for Commerce</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Geist:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap">
+
+  <link rel="stylesheet" href="styles.css?v=32">
+  <link rel="stylesheet" href="chat-widget.css?v=4">
+  <link rel="stylesheet" href="orb.css?v=2">
+  <link rel="stylesheet" href="compare-cards.css?v=5">
+  <link rel="stylesheet" href="collapse-flow.css?v=8">
+  <link rel="stylesheet" href="feedback.css?v=3">
+</head>
+<body data-mood="default" data-imagery="on" data-demo="static" data-type="serif-display" data-density="compact">
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+
+  <script type="text/babel" src="primitives.jsx?v=4"></script>
+  <script type="text/babel" src="diagram.jsx?v=2"></script>
+  <script type="text/babel" src="orb.jsx?v=6"></script>
+  <script type="text/babel" src="chat-widget.jsx?v=8"></script>
+  <script type="text/babel" src="cap-cards.jsx?v=2"></script>
+  <script type="text/babel" src="compare-cards.jsx?v=5"></script>
+  <script type="text/babel" src="collapse-flow.jsx?v=7"></script>
+
+  <script type="text/babel">
+    function App() {
+      const [topActive, setTopActive] = React.useState(false);
+      const [bottomActive, setBottomActive] = React.useState(false);
+
+      React.useEffect(() => {
+        if (!window.Lenis) return;
+        const lenis = new window.Lenis({
+          duration: 1.2,
+          easing: (x) => Math.min(1, 1.001 - Math.pow(2, -10 * x)),
+          smoothWheel: true,
+          wheelMultiplier: 1,
+          touchMultiplier: 1.5,
+        });
+        let raf;
+        let idleTimer;
+        const heroEl = document.querySelector('.hero');
+        const loop = (time) => {
+          lenis.raf(time);
+          if (heroEl) heroEl.style.setProperty('--scroll-y', `${Math.max(0, lenis.scroll)}px`);
+          raf = requestAnimationFrame(loop);
+        };
+        raf = requestAnimationFrame(loop);
+        const onScroll = (e) => {
+          const y = e.scroll;
+          const docH = document.documentElement.scrollHeight;
+          const winH = window.innerHeight;
+          const distFromBottom = docH - (y + winH);
+          // Show while scrolling — only if there's content to obscure on that edge
+          setTopActive(y > 60);
+          setBottomActive(distFromBottom > 80);
+          // Hide after the user stops moving for a beat
+          clearTimeout(idleTimer);
+          idleTimer = setTimeout(() => {
+            setTopActive(false);
+            setBottomActive(false);
+          }, 220);
+        };
+        lenis.on('scroll', onScroll);
+        return () => {
+          cancelAnimationFrame(raf);
+          clearTimeout(idleTimer);
+          lenis.destroy();
+        };
+      }, []);
+
+      React.useEffect(() => {
+        const els = document.querySelectorAll('[data-reveal]');
+        if (!els.length) return;
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add('is-visible');
+              io.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+        els.forEach(el => io.observe(el));
+        return () => io.disconnect();
+      }, []);
+
+      return (
+        <div data-screen-label="Echo Hi-Fi">
+          <div className={`blur-band top ${topActive ? 'scrolled' : ''}`}/>
+          <div className={`blur-band bottom ${bottomActive ? 'scrolled' : ''}`}/>
+          <Nav />
+
+          {/* HERO */}
+          <header className="hero">
+            <MountainScene />
+            <div className="hero-content">
+              <div className="hero-mark">
+                Echo · by CometChat
+              </div>
+              <h1 className="headline balance" style={{ fontSize: "78px" }}>
+                Commerce is starting to sound a lot more like a <span className="serif-italic" style={{ color: 'var(--accent-2)' }}>conversation</span>.
+              </h1>
+              <p className="hero-sub pretty">
+                Echo is a conversational AI layer for commerce — one interface that handles discovery, support, sales, and service. Most websites still make customers search, scroll, and wait. Echo lets them just ask.
+              </p>
+              <HeroAskBar />
+              <div className="hero-cta">
+                <Btn variant="glass-dark" size="lg" onClick={() => document.getElementById('how').scrollIntoView({ behavior: 'smooth' })}>See how it works</Btn>
+              </div>
+            </div>
+          </header>
+
+          {/* PULL QUOTE */}
+          <section className="pull-quote-section" data-reveal="up-lg">
+            <div className="container-narrow">
+              <p className="pull-quote">
+                Most websites still make customers <em>search, scroll, and wait</em>. Echo lets them just ask.
+              </p>
+            </div>
+          </section>
+
+          {/* ONE INTERFACE — diagram */}
+          <section id="how" className="section consolidate">
+            <div className="container">
+              <div className="section-head center" data-reveal>
+                <Eyebrow center>One interface</Eyebrow>
+                <h2 className="headline balance">The last one you'll <span className="serif-italic">add</span>.</h2>
+                <p className="lede pretty">
+                  Most websites run four or five customer-facing surfaces in parallel — a search bar, a chat widget, a WhatsApp link, an email form, a returns page buried in the footer. Each one does its job, more or less. None of them talk to each other.
+                </p>
+              </div>
+              <CollapseFlow />
+            </div>
+          </section>
+
+          {/* CAPABILITIES */}
+          <section className="section" style={{ padding: '120px 0 0' }}>
+            <div className="container">
+              <div className="section-head center" data-reveal>
+                <Eyebrow center>What Echo actually does</Eyebrow>
+                <h2 className="headline balance">Three modes. <span className="serif-italic">One Echo.</span></h2>
+              </div>
+            </div>
+          </section>
+
+          <section className="cap-stack">
+            <div className="container">
+              <div data-reveal="up-lg">
+                <CapCard
+                  num="01"
+                  label="Conversational"
+                  mode="text"
+                  headline='Real <em>back-and-forth</em>.'
+                  sub="Not a scripted flow, not a decision tree. Echo asks follow-ups, narrows options through conversation, and remembers what the customer said five messages ago."
+                  quoteStrong="I need running shoes."
+                  quoteBody="Instead of 15 links, Echo asks: trails or roads? What's your budget? Any brand preferences? Then gives two options with reasoning."
+                  bg="assets/cards/cap-conversational.jpg"
+                />
+              </div>
+              <div data-reveal="up-lg">
+                <CapCard
+                  num="02"
+                  label="Voice-enabled"
+                  mode="voice"
+                  headline='Customers <em>speak</em>. Echo listens.'
+                  sub="Searches your inventory, and responds. The entire browse-to-buy flow through voice alone — critical for mobile-first users and emerging markets. Almost no SMB website has this today."
+                  quoteStrong="Show me cotton bedsheets under $40 in king size."
+                  quoteBody="Processed, searched, answered. No typing required."
+                  bg="assets/cards/cap-voice.jpg"
+                  voiceVariant="bars"
+                />
+              </div>
+              <div data-reveal="up-lg">
+                <CapCard
+                  num="03"
+                  label="Multimodal"
+                  mode="image"
+                  headline='Page-aware. <em>Image-fluent.</em>'
+                  sub="Echo knows which page the customer is on, which product they're looking at, and accepts image uploads alongside text and voice. Not an isolated widget — a context-aware layer on top of your entire website."
+                  quoteStrong="I like this but in blue."
+                  quoteBody="Echo already knows which product they mean. It shows the blue variants instantly."
+                  bg="assets/cards/cap-multimodal.jpg"
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* FIT */}
+          <section className="section" style={{ background: 'var(--paper)' }}>
+            <div className="container">
+              <div className="section-head" data-reveal>
+                <Eyebrow>Honest fit check</Eyebrow>
+                <h2 className="headline balance">This is probably for you — or it isn't, and <span className="serif-italic">that's fine too.</span></h2>
+                <p className="lede">Echo works where real backend infrastructure meets real transaction volume.</p>
+              </div>
+              <div className="fit-grid">
+                <div className="fit-card" data-reveal data-reveal-delay="1">
+                  <div className="fit-tag yes">
+                    <span className="tag-circle">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12" /></svg>
+                    </span>
+                    For you if
+                  </div>
+                  <ul className="fit-list">
+                    <li>You have a product catalog, a CRM or customer data layer, and an eCommerce stack — Shopify, WooCommerce, or custom.</li>
+                    <li>You're processing real orders, managing real inventory, handling real returns.</li>
+                    <li>You're not a marketplace seller — you have your own website and you're invested in making it work.</li>
+                    <li>You don't have a large AI engineering team.</li>
+                    <li>You're not looking to spend six months and $200,000 building this internally. You want it deployed and working.</li>
+                  </ul>
+                </div>
+                <div className="fit-card no" data-reveal data-reveal-delay="2">
+                  <div className="fit-tag no">
+                    <span className="tag-circle">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><line x1="6" y1="6" x2="18" y2="18" /><line x1="18" y1="6" x2="6" y2="18" /></svg>
+                    </span>
+                    Not for you if
+                  </div>
+                  <ul className="fit-list">
+                    <li>You're a large enterprise with internal LLM partnerships and a 12-month procurement cycle. There are better products for you. We can name a few.</li>
+                    <li>You're an asset-light creator with no backend infrastructure. Same answer.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* PILOT CTA */}
+          <section className="pilot">
+            <div className="scene-photo">
+              <MountainScene />
+            </div>
+            <div className="pilot-content">
+              <div className="pilot-card" data-reveal="scale">
+                <Eyebrow center>Pilot program</Eyebrow>
+                <h2 className="headline balance" style={{ marginBottom: 28 }}>
+                  We are running a pilot. It is invite-only, and the spots are <span className="serif-italic">limited.</span>
+                </h2>
+                <p>
+                  We're running a pilot with a small number of businesses before Echo opens broadly. If you're in, you get the full product — conversational AI, voice, multimodal, omnichannel — live on your website, with our team handling the setup.
+                </p>
+                <p>
+                  Pilot pricing. Direct access to the team building it. And the kind of early-mover advantage that's genuinely hard to manufacture later.
+                </p>
+                <p style={{ color: 'var(--ink-3)' }}>
+                  We are selective about who we bring in — not to be exclusive, but because the pilot works better when the fit is real. If the profile matches, apply. We'll be in touch within a few days.
+                </p>
+                <div className="cta-row">
+                  <Btn variant="primary" size="lg">Talk to the team</Btn>
+                </div>
+                <div className="fineprint">
+                  No commitment required · Pilot pricing discussed after qualification
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* FOOTER */}
+          <footer className="footer">
+            <div className="container">
+              <div className="footer-inner">
+                <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                  <Logo />
+                  <span className="logo-sub">a CometChat product</span>
+                </div>
+                <div className="footer-meta">
+                  <a href="mailto:echo@cometchat.com">echo@cometchat.com</a>
+                  <span className="sep">·</span>
+                  <a href="#">Privacy</a>
+                  <a href="#">Terms</a>
+                  <span className="sep">·</span>
+                  <span className="mono" style={{ fontSize: 11, color: 'var(--ink-3)' }}>© 2026</span>
+                </div>
+              </div>
+            </div>
+          </footer>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+
+  <script src="feedback.js?v=2" defer></script>
+
+  <script>
+    // Verify Geist actually rendered (vs falling back to SF Pro / system).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        const ok = document.fonts.check('400 14px Geist');
+        if (ok) console.log('%c✓ Geist loaded', 'color: #16a34a; font-weight: 600');
+        else console.warn('Geist did NOT load — falling back to system sans (likely SF Pro on macOS).');
+      });
+    }
+  </script>
+</body>
+</html>

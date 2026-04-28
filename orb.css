@@ -1,0 +1,14 @@
+/* Echo Voice Visualizer — horizontal audio waveform */
+
+.echo-orb-wrap {
+  position: relative;
+  display: grid; place-items: center;
+  isolation: isolate;
+}
+.echo-orb-wrap canvas {
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .echo-orb-wrap canvas { animation: none !important; }
+}

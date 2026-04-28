@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Echo Chat Widget — preview</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Geist:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<link rel="stylesheet" href="chat-widget.css?v=4"/>
+<link rel="stylesheet" href="orb.css?v=2"/>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="orb.jsx?v=6"></script>
+  <script type="text/babel" src="chat-widget.jsx?v=8"></script>
+
+  <script type="text/babel">
+    function Preview() {
+      return (
+        <div className="preview-page" data-screen-label="Echo Chat Widget Preview">
+          <div className="preview-head">
+            <div className="ph-eyebrow">PREVIEW · standalone</div>
+            <h1 className="ph-title">Echo voice waveforms <em>— pick one</em></h1>
+            <p className="ph-sub">Three takes on the voice visualization, all using the same warm gold → coral → teal gradient. Below: the full three-mode lineup with the active variant.</p>
+          </div>
+
+          <div className="preview-row">
+            <PreviewSlot bg="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1600&q=80" label="A — bars">
+              <EchoChatWidget mode="voice" voiceVariant="bars"/>
+            </PreviewSlot>
+            <PreviewSlot bg="https://images.unsplash.com/photo-1604147495798-57beb5d6af73?w=1600&q=80" label="B — wave">
+              <EchoChatWidget mode="voice" voiceVariant="wave"/>
+            </PreviewSlot>
+            <PreviewSlot bg="https://images.unsplash.com/photo-1620207418302-439b387441b0?w=1600&q=80" label="C — blob">
+              <EchoChatWidget mode="voice" voiceVariant="blob"/>
+            </PreviewSlot>
+          </div>
+
+          <div className="preview-head" style={{ marginTop: 80 }}>
+            <h2 className="ph-title" style={{ fontSize: 32 }}>All three modes <em>together</em></h2>
+            <p className="ph-sub">Same widget, different mode. Voice slot uses the "bars" variant by default.</p>
+          </div>
+
+          <div className="preview-row">
+            <PreviewSlot bg="https://images.unsplash.com/photo-1551632811-561732d1e306?w=1600&q=80" label="01 — Conversational">
+              <EchoChatWidget mode="text"/>
+            </PreviewSlot>
+
+            <PreviewSlot bg="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1600&q=80" label="02 — Voice-enabled">
+              <EchoChatWidget mode="voice" voiceVariant="bars"/>
+            </PreviewSlot>
+
+            <PreviewSlot bg="https://images.unsplash.com/photo-1485518882345-15568b007407?w=1600&q=80" label="03 — Multimodal">
+              <EchoChatWidget mode="image"/>
+            </PreviewSlot>
+          </div>
+
+          <div className="preview-foot">
+            <span>echo<em>.</em></span>
+            <span>standalone widget · ready to integrate</span>
+          </div>
+        </div>
+      );
+    }
+
+    function PreviewSlot({ bg, label, children }) {
+      return (
+        <div className="preview-slot" style={{ backgroundImage: `url("${bg}")` }}>
+          <div className="ps-overlay"/>
+          <div className="ps-label">{label}</div>
+          <div className="ps-widget">{children}</div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<Preview/>);
+  </script>
+</body>
+</html>
