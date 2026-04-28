@@ -330,3 +330,14 @@
   .cf-echo { flex-direction: column; align-items: flex-start; gap: 12px; }
   .cf-actions { flex-wrap: wrap; }
 }
+
+@media (max-width: 640px) {
+  .cf { padding: 18px; border-radius: var(--r-lg); }
+  .cf-tiles { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .cf-tile { padding: 14px 10px; font-size: 12px; }
+  .cf-tile .cf-tile-label { font-size: 11px; }
+  .cf-echo { padding: 14px; }
+  .cf-echo-mark { font-size: 12px; }
+  .cf-actions { gap: 6px; }
+  .cf-action { font-size: 11px; padding: 6px 10px; }
+}

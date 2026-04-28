@@ -1190,6 +1190,8 @@ body[data-imagery="off"] .cap-card .cap-num-2 {
 .footer-meta .sep { color: var(--ink-4); }
 
 /* ============ Responsive ============ */
+.hero-h1 { font-size: clamp(40px, 6.4vw, 78px); }
+
 @media (max-width: 900px) {
   .grid-2, .grid-3, .grid-4, .stats-grid, .fit-grid, .cap-grid, .cap-grid.reverse {
     grid-template-columns: 1fr; gap: 32px;
@@ -1204,4 +1206,69 @@ body[data-imagery="off"] .cap-card .cap-num-2 {
   .pilot-card { padding: 40px 24px; }
   .ask-bar { padding: 10px; flex-wrap: wrap; }
   .ask-mode { width: 100%; padding: 4px 8px; }
+}
+
+@media (max-width: 640px) {
+  /* Section padding compression */
+  .section { padding: 64px 0; }
+  .pilot { padding: 96px 0; }
+  .container, .container-narrow { padding: 0 18px; }
+
+  /* Nav */
+  .nav { padding: 12px 18px; }
+  .logo-sub { display: none; }
+  .nav .btn { padding: 8px 14px; font-size: 13px; }
+
+  /* Hero */
+  .hero { padding-top: 88px; }
+  .hero-content { padding: 24px 8px 56px; }
+  .hero-h1 { font-size: clamp(32px, 9vw, 44px); letter-spacing: -0.035em; }
+  .hero-sub { font-size: 15px; line-height: 1.5; margin-bottom: 32px; }
+  .hero-mark { font-size: 10px; padding: 6px 14px; margin-bottom: 24px; }
+
+  /* Ask bar (hero) */
+  .ask-shell { border-radius: var(--r-lg); }
+  .ask-bar { padding: 8px; gap: 8px; }
+  .ask-bar input { font-size: 16px; }
+  .ask-bar .icon-btn { width: 36px; height: 36px; }
+  .ask-bar .send { width: 38px; height: 38px; }
+  .ask-suggestions { gap: 6px; padding: 10px 4px 4px; }
+  .ask-chip { padding: 6px 12px; font-size: 12px; }
+
+  /* General typography */
+  h2 { font-size: clamp(28px, 7vw, 36px); }
+  h3 { font-size: clamp(22px, 5vw, 28px); }
+  .eyebrow { font-size: 10px; padding: 6px 12px; gap: 6px; margin-bottom: 18px; }
+  .eyebrow::before { width: 5px; height: 5px; }
+
+  /* Cap cards (three modes) — already stack at 900px, tune sizes */
+  .cap-card { min-height: 480px; border-radius: var(--r-lg); }
+  .cap-card-inner { padding: 28px 20px; min-height: 480px; }
+  .cap-headline { font-size: 26px; }
+  .cap-sub { font-size: 14px; }
+  .cap-quote-2 { font-size: 14px; padding-top: 18px; }
+  .cap-num-2 { font-size: 10px; padding: 6px 12px; }
+  .cap-stack > .container > [data-reveal] + [data-reveal] { margin-top: 32px; }
+
+  /* Embedded chat widget — keep usable on phone */
+  .cap-widget { width: 100%; margin-top: 20px; }
+  .cap-widget .ecw { height: 460px; }
+
+  /* Fit cards */
+  .fit-card { padding: 24px 20px; }
+  .fit-list li { font-size: 14px; padding-left: 22px; }
+  .fit-tag { font-size: 10px; }
+
+  /* Pilot card */
+  .pilot-card { padding: 36px 20px; }
+  .pilot p { font-size: 15px; }
+  .pilot .cta-row .btn { width: 100%; justify-content: center; }
+  .pilot .fineprint { font-size: 10px; letter-spacing: 0.1em; }
+
+  /* Footer */
+  .footer { padding: 28px 0; }
+  .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+
+  /* Blur bands a touch shorter on phones */
+  .blur-band { height: 44px; }
 }
