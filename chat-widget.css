@@ -311,8 +311,8 @@
     0 4px 14px rgba(0,0,0,0.18);
   transition: padding-left 280ms cubic-bezier(.4,0,.2,1);
 }
-.ecw-composer.is-typing { padding-left: 6px; }
-.ecw-composer.is-typing .ecw-input { padding-left: 12px; }
+.ecw-composer.is-typing { padding-left: 4px; }
+.ecw-composer.is-typing .ecw-input { padding-left: 6px; }
 .ecw-input {
   flex: 1;
   background: transparent;
@@ -366,3 +366,11 @@
   animation: ecw-cursor 1s steps(2) infinite;
 }
 @keyframes ecw-cursor { 50% { opacity: 0; } }
+
+@media (max-width: 640px) {
+  .ecw-composer { margin: 8px; padding: 4px 4px 4px 10px; }
+  .ecw-composer.is-typing { padding-left: 4px; }
+  .ecw-composer.is-typing .ecw-input { padding-left: 4px; }
+  .ecw-input { font-size: 13px; padding: 7px 2px; }
+  .ecw-send { width: 30px; height: 30px; flex-shrink: 0; }
+}
