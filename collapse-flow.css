@@ -353,4 +353,23 @@
   }
   .cf-actions span { padding: 4px 10px; }
   .cf-actions span:not(:last-child)::after { display: none; }
+
+  /* Re-enable connector as a single centered dashed line + label */
+  .cf-connector {
+    display: block;
+    height: 56px;
+    margin: 6px 0 14px;
+  }
+  .cf-connector .cf-line { display: none; }
+  .cf-connector .cf-line:first-child {
+    display: block;
+    position: absolute;
+    left: 50%; top: 0;
+    transform: translateX(-50%);
+    width: 0; height: 100%;
+  }
+  .cf-connector .cf-line:first-child::before {
+    left: 0; transform: translateX(-1px);
+  }
+  .cf-collapse-label { font-size: 10.5px; padding: 5px 12px; }
 }
