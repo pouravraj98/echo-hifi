@@ -333,11 +333,24 @@
 
 @media (max-width: 640px) {
   .cf { padding: 18px; border-radius: var(--r-lg); }
+  .cf-eyebrow { font-size: 11px; flex-wrap: wrap; row-gap: 2px; }
   .cf-tiles { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .cf-tile { padding: 14px 10px; font-size: 12px; }
-  .cf-tile .cf-tile-label { font-size: 11px; }
-  .cf-echo { padding: 14px; }
-  .cf-echo-mark { font-size: 12px; }
-  .cf-actions { gap: 6px; }
-  .cf-action { font-size: 11px; padding: 6px 10px; }
+  /* Stretch the orphan 5th tile across both columns */
+  .cf-tile:nth-child(5) { grid-column: span 2; }
+  .cf-tile:nth-child(5) .cf-tile-name,
+  .cf-tile:nth-child(5) .cf-tile-meta { display: inline-block; }
+  .cf-tile { padding: 14px 12px; }
+  .cf-tile-name { font-size: 13px; }
+  .cf-tile-meta { font-size: 11.5px; }
+  .cf-echo { padding: 14px; gap: 12px; }
+  .cf-orb { width: 32px; height: 32px; flex-shrink: 0; }
+  .cf-echo-name { font-size: 14px; }
+  .cf-echo-meta { font-size: 11.5px; }
+  .cf-echo-meta em { display: block; margin-top: 2px; }
+  .cf-actions {
+    flex-wrap: wrap; row-gap: 6px;
+    width: 100%;
+  }
+  .cf-actions span { padding: 4px 10px; }
+  .cf-actions span:not(:last-child)::after { display: none; }
 }
