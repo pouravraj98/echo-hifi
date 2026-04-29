@@ -1250,17 +1250,30 @@ body[data-imagery="off"] .cap-card .cap-num-2 {
   .eyebrow::before { width: 5px; height: 5px; }
 
   /* Cap cards (three modes) — already stack at 900px, tune sizes */
-  .cap-card { min-height: 480px; border-radius: var(--r-lg); }
-  .cap-card-inner { padding: 28px 20px; min-height: 480px; }
+  .cap-card {
+    min-height: 0; border-radius: var(--r-lg);
+    display: flex; flex-direction: column;
+  }
+  .cap-card-inner {
+    height: auto; min-height: 0;
+    padding: 28px 20px 20px;
+    flex: 0 0 auto;
+  }
   .cap-headline { font-size: 26px; }
   .cap-sub { font-size: 14px; }
   .cap-quote-2 { font-size: 14px; padding-top: 18px; }
   .cap-num-2 { font-size: 10px; padding: 6px 12px; }
   .cap-stack > .container > [data-reveal] + [data-reveal] { margin-top: 32px; }
 
-  /* Embedded chat widget — keep usable on phone */
-  .cap-widget { width: 100%; margin-top: 20px; }
-  .cap-widget .ecw { height: 460px; }
+  /* Embedded chat widget — flows naturally below the text on phone */
+  .cap-widget {
+    position: relative;
+    right: auto; top: auto; transform: none;
+    width: auto;
+    margin: 0;
+    padding: 0 16px 20px;
+  }
+  .cap-widget .ecw { height: 440px; }
 
   /* Fit cards */
   .fit-card { padding: 24px 20px; }
