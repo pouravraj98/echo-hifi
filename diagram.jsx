@@ -32,7 +32,7 @@ function ConsolidationDiagram() {
           {t.label}
         </div>
       ))}
-      <div className="echo-orb">echo<em style={{ color: 'white', fontStyle: 'normal' }}>.</em></div>
+      <div className="echo-orb">Crossword<em style={{ color: 'white', fontStyle: 'normal' }}>.</em></div>
       <button
         className="consolidate-replay"
         onClick={() => { setMerged(false); setTimeout(() => setMerged(true), 700); }}

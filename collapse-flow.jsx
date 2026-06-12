@@ -87,7 +87,7 @@ function CollapseFlow() {
       <div className="cf-echo">
         <div className="cf-orb"/>
         <div className="cf-echo-text">
-          <div className="cf-echo-name">Echo</div>
+          <div className="cf-echo-name">Crossword</div>
           <div className="cf-echo-meta">One conversation <em>· context carries · web · app · whatsapp</em></div>
         </div>
         <div className="cf-actions">

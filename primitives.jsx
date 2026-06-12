@@ -2,7 +2,7 @@
 
 const Logo = () => (
   <a href="#" className="logo">
-    echo<em>.</em>
+    Crossword<em>.</em>
   </a>
 );
 
@@ -69,7 +69,7 @@ const MountainScene = () => {
 // Hero ask bar with cycling text → voice → image
 const HeroAskBar = () => {
   const modes = [
-    { kind: 'text', label: 'Ask Echo anything…', typed: 'I need running shoes for trails' },
+    { kind: 'text', label: 'Ask Crossword anything…', typed: 'I need running shoes for trails' },
     { kind: 'voice', label: 'Tap to speak', typed: 'Show me cotton bedsheets under $40' },
     { kind: 'image', label: 'Drop an image', typed: 'I like this but in blue' },
   ];

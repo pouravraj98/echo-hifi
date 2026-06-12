@@ -55,7 +55,7 @@ function CompareCards() {
 
       {/* ECHO */}
       <div className="cmp-card cmp-echo">
-        <div className="cmp-eyebrow"><span className="slash">//</span>the way Echo works</div>
+        <div className="cmp-eyebrow"><span className="slash">//</span>the way Crossword works</div>
         <div className="cmp-hero-tile">
           <div className="cmp-orb"/>
           <div className="cmp-hero-text">
