@@ -31,7 +31,7 @@ const Nav = () => {
         <Logo/>
         <span className="logo-sub">a CometChat product</span>
       </div>
-      <a href="https://www.cometchat.com/contact-sales"><button className={scrolled ? 'btn primary' : 'btn glass'}>
+      <a href="http://waitlist.crossword.ai/"><button className={scrolled ? 'btn primary' : 'btn glass'}>
         Apply for early access
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </button></a>
