@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Geist:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap">
 
-  <link rel="stylesheet" href="styles.css?v=37">
+  <link rel="stylesheet" href="styles.css?v=41">
   <link rel="stylesheet" href="chat-widget.css?v=5">
   <link rel="stylesheet" href="orb.css?v=2">
   <link rel="stylesheet" href="compare-cards.css?v=5">
@@ -38,6 +38,31 @@
   <script type="text/babel" src="collapse-flow.jsx?v=7"></script>
 
   <script type="text/babel">
+    // Pilot customer logos, in a white strip between the hero and the first section. Files live in assets/pilots/.
+    // The strip renders nothing while this list is empty.
+    // `h` evens out optical weight: wide wordmarks sit shorter than square marks.
+    const PILOT_LOGOS = [
+      { name: 'HabitAware', src: 'assets/pilots/habitaware.png?v=3', h: 38 },
+      { name: 'Analog', src: 'assets/pilots/analog.png?v=3', h: 34 },
+      { name: 'Absolute Science', src: 'assets/pilots/absolute-science.png?v=3', h: 40 },
+      { name: 'VegNonVeg', src: 'assets/pilots/vegnonveg.png?v=3', h: 30 },
+      { name: "Only What's Needed", src: 'assets/pilots/only-whats-needed.png?v=3', h: 46 },
+    ];
+
+    function PilotLogos() {
+      if (!PILOT_LOGOS.length) return null;
+      return (
+        <section className="pilot-logos">
+          <div className="pilot-logos-label">In pilot with</div>
+          <ul className="pilot-logos-row">
+            {PILOT_LOGOS.map(l => (
+              <li key={l.name}><img src={l.src} alt={l.name} loading="lazy" style={{ '--logo-h': `${l.h}px` }} /></li>
+            ))}
+          </ul>
+        </section>
+      );
+    }
+
     function App() {
       const [topActive, setTopActive] = React.useState(false);
       const [bottomActive, setBottomActive] = React.useState(false);
@@ -123,6 +148,9 @@
               </div>
             </div>
           </header>
+
+          {/* PILOT LOGOS */}
+          <PilotLogos />
 
           {/* PULL QUOTE */}
           <section className="pull-quote-section" data-reveal="up-lg">
