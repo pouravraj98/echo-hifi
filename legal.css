@@ -1,4 +1,4 @@
-/* ============ Legal pages (privacy.html, terms.html) ============
+/* ============ Legal pages (privacy.html, terms.html, support.html) ============
    Static pages that share the landing site's tokens from styles.css. */
 
 .legal-nav {
@@ -47,14 +47,39 @@
 .legal-body strong { color: var(--ink); font-weight: 600; }
 .legal-body a { color: var(--accent-2); text-underline-offset: 3px; }
 
+/* Support page */
+.support-layout {
+  display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 72px;
+  padding-top: 56px; padding-bottom: 120px; align-items: start;
+}
+.support-card {
+  position: sticky; top: 96px;
+  display: flex; flex-direction: column; gap: 10px;
+  padding: 28px; border: 1px solid var(--line); border-radius: 20px;
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  text-decoration: none; transition: border-color 180ms ease, transform 180ms ease;
+}
+.support-card:hover { border-color: var(--accent-2); transform: translateY(-2px); }
+.support-card-label {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3);
+}
+.support-card-email {
+  font-family: var(--font-serif); font-size: 26px; letter-spacing: -0.02em; color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.support-card-cta { font-size: 14px; color: var(--accent-2); }
+
 @media (max-width: 900px) {
+  .support-layout { grid-template-columns: 1fr; gap: 40px; padding-top: 40px; }
+  .support-card { position: static; }
   .legal-layout { grid-template-columns: 1fr; gap: 40px; padding-top: 40px; }
   .legal-toc { position: static; max-height: none; padding-bottom: 32px; border-bottom: 1px solid var(--line); }
 }
 @media (max-width: 640px) {
   .legal-nav { padding: 14px 16px; }
   .legal-hero { padding: 56px 0 36px; }
-  .legal-hero .container, .legal-layout.container { padding: 0 16px; }
+  .legal-hero .container, .legal-layout.container, .support-layout.container { padding: 0 16px; }
+  .support-layout { padding-bottom: 80px; }
   .legal-layout { padding-bottom: 80px; }
   .legal-body { font-size: 15px; }
   .legal-body p.sub { padding-left: 14px; }
